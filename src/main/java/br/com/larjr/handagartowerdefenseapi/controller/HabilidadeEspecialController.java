@@ -1,5 +1,9 @@
 package br.com.larjr.handagartowerdefenseapi.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -10,22 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.larjr.handagartowerdefenseapi.entidade.HabilidadeEspecial;
+import br.com.larjr.handagartowerdefenseapi.service.HabilidadeEspecialService;
+
 @RestController
 @RequestMapping("/habilidadeEspecial")
 public class HabilidadeEspecialController {
-	
-	@GetMapping("")
-	private String listaTodos() {
 
-		return "GET: listaTodos";
+	@Autowired
+	HabilidadeEspecialService habilidadeEspecialService;
+
+	@GetMapping("")
+	private List<HabilidadeEspecial> listaTodos() {
+		return habilidadeEspecialService.listaTodos();
 	}
 
 	@GetMapping("{id}")
-	private String listaPeloId(@PathVariable(value = "id") Long id) {
-		String idInformado = "GET: Id informado: ";
-		idInformado = idInformado.concat(id.toString());
-
-		return idInformado;
+	private Optional<HabilidadeEspecial> listaPeloId(@PathVariable(value = "id") Long id) {
+		return habilidadeEspecialService.encontraPeloId(id);
 	}
 
 	@PostMapping("")
@@ -67,7 +73,7 @@ public class HabilidadeEspecialController {
 		return idInformado;
 	}
 
-	//TODO: Verificar uso do método HEAD
+	// TODO: Verificar uso do método HEAD
 	@RequestMapping(value = "{id}", method = RequestMethod.HEAD)
 	private String headHabilidadeEspecial(@PathVariable(value = "id") Long id) {
 		String idInformado = "HEAD: Id informado: ";
@@ -77,6 +83,5 @@ public class HabilidadeEspecialController {
 
 		return idInformado;
 	}
-
 
 }

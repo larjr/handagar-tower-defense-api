@@ -8,6 +8,7 @@ public class HandagarTowerDefenseApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HandagarTowerDefenseApiApplication.class, args);
+
 	}
 
 }
